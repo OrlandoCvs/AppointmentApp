@@ -1,5 +1,7 @@
 from sqlalchemy import create_engine, MetaData, text
+from sqlalchemy.orm import declarative_base
 
+Base = declarative_base()
 engine = create_engine("mysql+pymysql://root:@localhost:3306/appointmentdb")
 
 try:

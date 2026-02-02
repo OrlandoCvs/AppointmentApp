@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from uuid import UUID, uuid4 as uuid
 from typing import Optional
 
@@ -8,12 +8,14 @@ class Doctor(BaseModel):
     doctor_lastname : str
     specialty_uuid : UUID
     model_config = ConfigDict(from_attributes= True)
+    email = EmailStr 
 
 class DoctorList(BaseModel):
     doctor_name : str
     doctor_lastname : str
     specialty_name : Optional[str]
     model_config = ConfigDict(from_attributes=True)
+
 
 
 
