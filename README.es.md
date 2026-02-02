@@ -207,29 +207,6 @@ def upgrade() -> None:
         sa.UniqueConstraint('uuid')
     )
 
-```
-
----
-
-## 6. Technical Debt and Next Steps
-
-Based on the current code analysis, the following tasks are identified for the next iteration:
-
-1. **Appointment Normalization:**
-* Remove redundant `patient_name` and `patient_lastname` columns in `models/appointment.py`.
-* Implement a `ForeignKey` pointing to the new `patients` table.
-
-
-2. **Syntax Correction:**
-* In `schemas/patient.py`, type definitions currently use assignment (`=`) instead of type annotation (`:`).
-
-
-* *Current code:* `patient_name = str`
-* *Required correction:* `patient_name: str`
-
-
-3. **Missing Relationships:**
-* Establish a bidirectional `relationship()` between `Patient` and `Appointment`.
 
 
 
