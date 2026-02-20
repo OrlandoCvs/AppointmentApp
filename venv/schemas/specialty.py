@@ -4,7 +4,7 @@ from typing import Optional
 
 class Specialty(BaseModel):
     id : int
-    specialty_uuid : UUID = Field(default_factory=uuid())
+    uuid : UUID = Field(default_factory=uuid)
     specialty_name : str
 
 

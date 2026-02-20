@@ -24,6 +24,8 @@ class Appointment(Base):
     created_at = Column(DateTime, server_default= text('CURRENT_TIMESTAMP'))
     doctor_id = Column(Integer, ForeignKey("doctors.id"), nullable=False, index= True)
     doctor = relationship("Doctor", back_populates= "appointments")
+
+
     
 
     
