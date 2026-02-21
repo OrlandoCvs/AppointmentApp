@@ -1,0 +1,9 @@
+# Secretos y Configuración
+.env
+
+# Docker
+.docker/
+
+venv/
+.venv/
+env/
