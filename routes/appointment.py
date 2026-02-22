@@ -3,7 +3,7 @@ from config.db import engine, get_db
 from sqlalchemy.orm import Session
 from typing import List
 from cryptography.fernet import Fernet
-from schemas.doctor import DoctorList
+from schemas.doctor import DoctorBasic
 # 1. IMPORTACIONES CLARAS
 from models.appointment import Appointment as AppointmentDB
 from models.doctor import Doctor as DoctorDB
@@ -52,7 +52,7 @@ def create_appointment(data: AppointmentSchema, db: Session = Depends(get_db)):
     return {"message": "cita creada con éxito"}
 
 # --- RUTA PARA DOCTORES ---
-@appointment.get("/doctors", response_model= List[DoctorList])
+@appointment.get("/doctors", response_model= List[DoctorBasic])
 def get_doctors(db: Session = Depends(get_db)):
     return db.query(DoctorDB).all()
 

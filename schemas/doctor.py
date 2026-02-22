@@ -15,10 +15,10 @@ class Doctor(BaseModel):
     model_config = ConfigDict(from_attributes= True)
     email : EmailStr 
 
-class DoctorList(BaseModel):
+class DoctorBasic(BaseModel):
     uuid : UUID 
-    doctor_name : str
-    doctor_lastname : str
+    first_name : str
+    last_name : str
     specialty : SpecialtyBasic
     model_config = ConfigDict(from_attributes=True)
 
