@@ -1,42 +1,37 @@
-#schemas/appointments.py: focuses on Data Validation (how data enters the API)
-
-#pydantic schemas handle Request/Response data validation and serialization.
-#ensures incoming JSON matches expected types before reaching the database.
-#separates internal logic from public facing data.
-
 from pydantic import BaseModel, Field, ConfigDict
-from uuid import UUID, uuid4 as uuid
+from uuid import UUID
 from datetime import datetime
+from typing import Optional, List
+# Importamos el schema de Prescription que ya validamos
+from schemas.prescription import Prescription
 
-#because we don't need to create ID's
-from typing import Optional
-
-
-class Appointment(BaseModel):
-    uuid: UUID = Field(default_factory = uuid)
-    patient_name :str
-    patient_lastname : str
-    description : str
-    appointment_datetime : datetime
-    doctor_id : UUID
-    status: str = "pending"
-    created_at : Optional[datetime] = None
-    #DB objects compatibility with SQLAlchemy
+class AppointmentBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
+    description: str = Field(..., example="Dolor de garganta y fiebre")
+    appointment_datetime: datetime
+
+class AppointmentCreate(AppointmentBase):
+    # En lugar de nombres, enviamos los IDs para vincular en la DB
+    doctor_id: int
+    patient_id: int
 
 class AppointmentList(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     uuid: UUID
-    patient_name : str
-    patient_lastname : str
-    appointment_datetime : datetime
+    appointment_datetime: datetime
     status: str
-    model_config = ConfigDict(from_attributes=True)
+    # Aquí podrías incluir info básica del doctor/paciente para la lista
+    doctor_name: Optional[str] = None 
+    patient_name: Optional[str] = None
 
-class AppointmentCreate(BaseModel):
-    patient_name: str
-    patient_lastname: str
-    description: str
-    model_config = ConfigDict(from_attributes=True)
-
-
+class Appointment(AppointmentBase):
+    id: int
+    uuid: UUID
+    status: str
+    created_at: datetime
+    doctor_id: int
+    patient_id: int
     
+    # EL GRAN CAMBIO: Incluimos la receta de forma opcional
+    # Si la cita no tiene receta aún, esto será None
+    prescription: Optional[Prescription] = None

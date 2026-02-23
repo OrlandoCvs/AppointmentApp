@@ -3,11 +3,13 @@ import os
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
-from config.db import Base
-from models.appointment import Appointment
 from models.doctor import Doctor
-from models.specialty import Specialty
 from models.patient import Patient
+from models.specialty import Specialty
+from models.appointment import Appointment
+from models.prescription import Prescription
+from models.medication import Medication
+from config.db import Base
 from dotenv import load_dotenv
 
 load_dotenv()

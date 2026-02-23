@@ -5,5 +5,6 @@ from typing import Optional
 class SpecialtyBasic(BaseModel):
     uuid : UUID = Field(default_factory=uuid)
     name : str
+    model_config = ConfigDict(from_attributes=True)
 
 
